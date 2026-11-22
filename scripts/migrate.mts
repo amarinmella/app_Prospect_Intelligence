@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { runMigrations } from "../lib/db/migrate";
+import { runMigrations } from "../lib/db/migrate.ts";
 
 const url = process.env.DATABASE_URL;
 if (!url) {

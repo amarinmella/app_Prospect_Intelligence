@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "db:migrate": "tsx scripts/migrate.ts",
+    "db:migrate": "tsx scripts/migrate.mts",
     "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {

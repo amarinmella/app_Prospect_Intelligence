@@ -17,9 +17,9 @@ export async function listSearches(limit = 50): Promise<Search[]> {
 }
 export async function setSearchState(id: string, patch: { status: Search["status"]; provider?: string | null; error?: string | null; found_count?: number }) {
   await query(
-    `update searches set status = $2, provider = coalesce($3, provider), error = $4,
+    `update searches set status = $2::search_status, provider = coalesce($3, provider), error = $4,
        found_count = coalesce($5, found_count),
-       started_at = case when $2 = 'running' then now() else started_at end,
-       finished_at = case when $2 in ('completed','failed') then now() else finished_at end
+       started_at = case when $2::text = 'running' then now() else started_at end,
+       finished_at = case when $2::text in ('completed','failed') then now() else finished_at end
      where id = $1`, [id, patch.status, patch.provider ?? null, patch.error ?? null, patch.found_count ?? null]);
 }
