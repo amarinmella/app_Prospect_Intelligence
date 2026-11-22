@@ -15,6 +15,10 @@ export interface ReportContent {
   recommendations: string[];
   proposedSystems: string[];
   potentialImpact: string;
+  /** Opcional: puntuación heurística y su desglose (para mostrarla con transparencia en el PDF). */
+  score?: { total: number; confidence: string; method: string; factors: { factor: string; points: number; weight: number; explanation: string }[] };
+  /** Opcional: "claude" si recomendaciones/impacto fueron redactados por el modelo, "datos" si se derivaron directamente del análisis. */
+  narrative?: "claude" | "datos";
 }
 export interface ReportInput {
   company: Company;
