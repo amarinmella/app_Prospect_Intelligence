@@ -24,5 +24,16 @@ export async function discover(q: DiscoveryQuery): Promise<{ provider: Discovery
         : "Todavía no hay ningún proveedor de descubrimiento registrado (lib/discovery/providers.ts).",
     );
   }
-  return { provider, companies: await provider.discover(q) };
+  // Si el proveedor principal falla (cuota, red, clave inválida), se intenta el siguiente configurado.
+  const candidates = discoveryProviders.filter((p) => p.isConfigured());
+  let lastError: unknown;
+  for (const p of candidates) {
+    try {
+      return { provider: p, companies: await p.discover(q) };
+    } catch (e) {
+      lastError = e;
+      console.warn(`[discovery] ${p.id} falló, probando siguiente proveedor:`, e instanceof Error ? e.message : e);
+    }
+  }
+  throw lastError ?? new Error("Sin proveedores disponibles");
 }

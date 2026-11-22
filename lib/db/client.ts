@@ -1,4 +1,5 @@
 import "server-only";
+import fs from "node:fs";
 import path from "node:path";
 import { runMigrations, type Executor } from "./migrate";
 
@@ -34,6 +35,7 @@ async function createDriver(): Promise<Driver> {
   } else {
     const { PGlite } = await import("@electric-sql/pglite");
     const dir = process.env.PGLITE_DIR ?? path.join(process.cwd(), ".data", "pglite");
+    fs.mkdirSync(path.dirname(dir), { recursive: true });
     const db = new PGlite(dir);
     await db.waitReady;
     driver = {
