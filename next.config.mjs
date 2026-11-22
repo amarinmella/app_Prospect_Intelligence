@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
 export default {
-  serverExternalPackages: ["@electric-sql/pglite", "postgres"],
+  serverExternalPackages: ["@electric-sql/pglite", "postgres", "pdfkit"],
   poweredByHeader: false,
 };
