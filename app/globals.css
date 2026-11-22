@@ -108,3 +108,8 @@ textarea.input { min-height: 70px; resize: vertical; }
   .kpis, .filters, .g2, .g3, .g4, .g-main { grid-template-columns: 1fr 1fr; }
   .g-main { grid-template-columns: 1fr; }
 }
+
+.g-main > .grid { align-content: start; }
+.feed .nm { font-weight: 400; }
+.feed a.nm { color: var(--text); } .feed a.nm:hover { color: var(--accent); text-decoration: underline; }
+.filters .lbl { min-height: 16px; }
